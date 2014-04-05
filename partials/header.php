@@ -29,3 +29,9 @@
     flush();
   ?>
   <body>
+  <div class="header-contain">
+    <div class="header-logo">
+      <img class="sound-logo" src="images/testLogo.png">
+    </div>
+    <div class="header-backdrop"></div>
+  </div>
