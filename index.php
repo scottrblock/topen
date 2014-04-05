@@ -30,7 +30,7 @@
          # https://github.com/J7mbo/twitter-api-php
 
           $url = 'https://api.twitter.com/1.1/search/tweets.json';
-          $getfield = '?q=%23sctop10&result_type=mixed&include_entities=true&count=200';
+          $getfield = '?q=%23sctop10&result_type=mixed&count=200';
           $requestMethod = 'GET';
           $twitter = new TwitterAPIExchange($settings);
           $tweets = $twitter->setGetfield($getfield) 
@@ -46,7 +46,7 @@
           foreach($tweets->statuses as $t){
             
             # only tweets that have a link and are not retweets
-            if(strpos($t->text, 'http://t.co') !== false && substr($t->text, 0, 2) !== 'RT'){
+            if(strpos($t->text, 'http://t.co') !== false && substr($t->text, 0, 2) !== 'RT' && strpos($t->text, 'RT') == false){
               # extract link from tweet
               preg_match("/(http|https|ftp|ftps)\:\/\/[a-zA-Z0-9\-\.]+\.[a-zA-Z]{2,3}(\/\S*)?/", $t->text, $link);
               if(is_array($link)){
@@ -84,9 +84,16 @@
                 echo "</a>";
               echo "</div>";
 
-              # delete the link from the tweet
-              $linkless = str_replace($flacid_url . " ", "", $t->text);
-              echo "<div>" . $linkless . "</div>";
+              # remove things from the tweet
+              $a = str_replace(" " . $flacid_url, "", $t->text);
+              $b = str_replace(" #SCtop10", "", $a);
+              $c = str_replace(" #sctop10", "", $b);
+              $d = str_replace(" #SCTop10", "", $c);
+              $e = str_replace("#SCTop10 ", "", $d);
+              $f = str_replace("#SCtop10 ", "", $e);
+              $g = str_replace("#sctop10 ", "", $f);
+              $h = str_replace($flacid_url . " ", "", $g);
+              echo "<div>" . $h . "</div>";
               echo '<iframe width="560" height="315" src="//www.youtube.com/embed/' . $youtube_id . '" frameborder="0" allowfullscreen></iframe>';
             }
           }
