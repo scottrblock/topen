@@ -33,11 +33,10 @@
           $getfield = '?q=%23sctop10&result_type=mixed&include_entities=true&count=200';
           $requestMethod = 'GET';
           $twitter = new TwitterAPIExchange($settings);
-          $tweets = $twitter->setGetfield($getfield) 
+          $tweets = json_decode($twitter->setGetfield($getfield) 
                        ->buildOauth($url, $requestMethod) 
-                       ->performRequest(); 
+                       ->performRequest()); 
 
-          $tweets = json_decode($tweets);
 
           # avoid duplicates by keeping track of used youtube videos
           $youtube_ids = array();
@@ -46,18 +45,11 @@
           foreach($tweets->statuses as $t){
             
             # only tweets that have a link and are not retweets
-            if(strpos($t->text, 'http://t.co') !== false && substr($t->text, 0, 2) !== 'RT'){
-              # extract link from tweet
-              preg_match("/(http|https|ftp|ftps)\:\/\/[a-zA-Z0-9\-\.]+\.[a-zA-Z]{2,3}(\/\S*)?/", $t->text, $link);
-              if(is_array($link)){
-                $flacid_url = $link[0];
-                $boner_url = expandShortUrl($link[0]);
-              }else{
-                $flacid_url = $link;
-                $boner_url = expandShortUrl($link);
-              }
-              if($boner_url === "null"){
+            if( substr($t->text, 0, 2) !== 'RT'){
+              if (!is_array($t->entities->urls)){
                 continue;
+              } else{
+                $boner_url = $t->entities->urls[0]->expanded_url;
               }
 
               # extract youtube id from link
@@ -77,6 +69,9 @@
               # add avi and twitter handle
               $user_name = $t->user->screen_name;
 
+             /* echo "<pre>";
+              print_r($t);
+              echo "</pre>";*/
               echo "<div class='user-info'>";
                 echo "<a href='http://twitter.com/" . $user_name . "'>";
                   echo "<img class='user-avatar' src='" . $t->user->profile_image_url . "'/>";
@@ -87,24 +82,11 @@
               # delete the link from the tweet
               $linkless = str_replace($flacid_url . " ", "", $t->text);
               echo "<div>" . $linkless . "</div>";
-              echo '<iframe width="560" height="315" src="//www.youtube.com/embed/' . $youtube_id . '" frameborder="0" allowfullscreen></iframe>';
+             echo '<iframe width="560" height="315" src="//www.youtube.com/embed/' . $youtube_id . '" frameborder="0" allowfullscreen></iframe>';
             }
           }
 
-          function expandShortUrl($url) {
-            $headers = get_headers($url, 1);
-            if(isset($headers['location'])){
-              if(!is_array($headers['location'])){
-                $out = $headers['location'];
-              }else {
-                $out = $headers['location'][0];
-              }
-              return $out;
-            }else {
-              return "null";
-            }
-          }
-
+        
         ?>
       </ul>
     </div>
