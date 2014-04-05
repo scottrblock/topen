@@ -88,8 +88,9 @@
               $e = str_replace("#SCTop10 ", "", $d);
               $f = str_replace("#SCtop10 ", "", $e);
               $g = str_replace("#sctop10 ", "", $f);
-              $h = str_replace($flacid_url . " ", "", $g);
-              echo "<div>" . $h . "</div>";
+              $h = str_replace("»", "", $g);
+              $i = str_replace($flacid_url . " ", "", $h);
+              echo "<div>" . $i . "</div>";
               echo '<iframe width="560" height="315" src="//www.youtube.com/embed/' . $youtube_id . '" frameborder="0" allowfullscreen></iframe>';
             }
           }
