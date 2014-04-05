@@ -3,9 +3,8 @@
 ?>    
   <div class="container">
     <div class="col-md-12">
-      <h1>Hello World</h1>
+      <h1>Top Plays</h1>
 
-      <h2><?php echo "Hello from php";?></h2>
       
       <ul>
       
@@ -38,8 +37,9 @@
                        ->buildOauth($url, $requestMethod) 
                        ->performRequest(); 
 
-          //echo $tweets;
           $tweets = json_decode($tweets);
+
+          $youtube_ids = array();
 
           foreach($tweets->statuses as $t){
             
@@ -57,9 +57,17 @@
               $youtube_string = "http://youtu.be/";
               if( strpos($boner_url, $youtube_string) !== false ){
                 $youtube_id = str_replace($youtube_string, "", $boner_url);
+
+                if(in_array($youtube_id, $youtube_ids)){
+                  continue;
+                }
+
+                array_push($youtube_ids, $youtube_id);
               } else{
                 continue;
               }
+
+
               $user_name = $t->user->screen_name;
 
               echo "<div class='user-info'>";
