@@ -30,16 +30,18 @@
 
           //https://github.com/J7mbo/twitter-api-php
 
-          $url = 'https://api.twitter.com/1.1/statuses/user_timeline.json';
-          $getfield = '?screen_name=' . "ESPN";
+
+
+          $url = 'https://api.twitter.com/1.1/search/tweets.json';
+          $getfield = '?q=#baseball&result_type=recent';
           $requestMethod = 'GET';
           $twitter = new TwitterAPIExchange($settings);
           $tweets = $twitter->setGetfield($getfield) 
                        ->buildOauth($url, $requestMethod) 
                        ->performRequest(); 
 
-          //echo $tweets;
-          $tweets = json_decode($tweets);
+          echo $tweets;
+          $tweets = json_decode($tweets ->statuses);
           
           foreach($tweets as $t){
             echo "<li>" . $t->text . "</li>";
