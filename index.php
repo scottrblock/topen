@@ -56,8 +56,28 @@
                        ->buildOauth($url, $requestMethod) 
                        ->performRequest()); 
 
+          $getfield4 = '?q=@nfl&result_type=mixed&count=100&include_entities=true';
+          $tweets4 = json_decode($twitter->setGetfield($getfield4) 
+                       ->buildOauth($url, $requestMethod) 
+                       ->performRequest()); 
 
-          $all_tweets = array_merge($tweets->statuses, $tweets2->statuses, $tweets3->statuses);
+          $getfield5 = '?q=@nba&result_type=mixed&count=100&include_entities=true';
+          $tweets5 = json_decode($twitter->setGetfield($getfield5) 
+                       ->buildOauth($url, $requestMethod) 
+                       ->performRequest()); 
+
+          $getfield6 = '?q=@mlb&result_type=mixed&count=100&include_entities=true';
+          $tweets6 = json_decode($twitter->setGetfield($getfield6) 
+                       ->buildOauth($url, $requestMethod) 
+                       ->performRequest()); 
+
+          $getfield7 = '?q=@nhl&result_type=mixed&count=100&include_entities=true';
+          $tweets7 = json_decode($twitter->setGetfield($getfield7) 
+                       ->buildOauth($url, $requestMethod) 
+                       ->performRequest()); 
+
+          $all_tweets = array_merge($tweets->statuses, $tweets2->statuses, $tweets3->statuses, 
+                            $tweets4->statuses, $tweets5->statuses, $tweets6->statuses, $tweets7->statuses);
 
           # avoid duplicates by keeping track of used youtube videos
           $youtube_ids = array();
