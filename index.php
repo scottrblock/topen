@@ -3,7 +3,7 @@
 ?>    
   <div class="container">
     <div class="col-md-12">
-      <h1>Top Plays</h1>
+      <h1>TwitterPlays</h1>
 
       
       <ul>
