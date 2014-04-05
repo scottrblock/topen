@@ -50,7 +50,7 @@
 
           $all_tweets = array_merge($tweets->statuses, $tweets2->statuses, $tweets3->statuses, 
                             $tweets4->statuses, $tweets5->statuses, $tweets6->statuses, 
-                            $tweets7->statuses, $tweets8->statuses);
+                            $tweets7->statuses, $tweets8->statuses, $tweets9->statuses);
 
           # avoid duplicates by keeping track of used youtube videos
           $youtube_ids = array();
