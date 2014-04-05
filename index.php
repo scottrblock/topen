@@ -109,21 +109,19 @@
                   echo "</a>";
                 echo "</div>";
 
-                echo "<div class='user-handle'>";
-                  echo "<a href='http://twitter.com/" . $user_name . "'>";
-                    echo "@" . $user_name;
-                  echo "</a>";
-                echo "</div>";
+
 
                 echo "<div class='tweet-user-media-wrap clearfix'>";
                   echo "<div class='user-tweet-area'>";
-
-                    echo "<div class='tweet-time'>";
-                      $date = strtotime($t->created_at);
-                      echo ago($date);
-                    echo "</div>";
                     
                     echo "<div class='tweet-text'>";
+                      echo "<div class='tweet-time'>";
+                        echo "<a href='http://twitter.com/" . $user_name . "'>";
+                    echo "@" . $user_name;
+                  echo "</a> | ";
+                        $date = strtotime($t->created_at);
+                        echo ago($date);
+                      echo "</div>";
                       echo "<p>" . $i . "</p>";
                     echo "</div>";
 
