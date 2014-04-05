@@ -43,6 +43,7 @@
                        ->performRequest(); 
 
 <<<<<<< HEAD
+<<<<<<< HEAD
           $tweets = json_decode($tweets);
           foreach($tweets->statuses as $t){
 
@@ -54,6 +55,9 @@
            
            //echo "<li>" . $t->text . "</li>";
 =======
+=======
+
+>>>>>>> c543fce8559319ba0d9fc77dfc8a02daf05369e7
           //echo $tweets;
           $tweets = json_decode($tweets);
           
