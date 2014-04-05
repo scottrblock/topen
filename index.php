@@ -61,15 +61,20 @@
                 continue;
               }
               $user_name = $t->user->screen_name;
-              
+
               echo "<div class='user-info'>";
-                echo "<a href='http://twitter.com/" . $user_name . "'>@" . $user_name;
-                echo "<img src='" . $t->user->profile_image_url . "'/></a>";
+                echo "<a href='http://twitter.com/" . $user_name . "'>";
+                  echo "<img class='user-avatar' src='" . $t->user->profile_image_url . "'/>";
+                  echo "@" . $user_name;
+                echo "</a>";
               echo "</div>";
 
+              /*
               echo "<pre>";
               print_r($t);
               echo "</pre>";
+              */
+
               echo "<div>" . $t->text . "</div>";
               echo '<iframe width="560" height="315" src="//www.youtube.com/embed/' . $youtube_id . '" frameborder="0" allowfullscreen></iframe>';
             }
