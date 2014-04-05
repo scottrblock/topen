@@ -31,7 +31,7 @@
           https://github.com/J7mbo/twitter-api-php
 
           $url = 'https://api.twitter.com/1.1/search/tweets.json';
-          $getfield = '?q=#sctop10&result_type=mixed&include_entities=true';
+          $getfield = '?q=%23sctop10&result_type=mixed&include_entities=true&count=200';
           $requestMethod = 'GET';
           $twitter = new TwitterAPIExchange($settings);
           $tweets = $twitter->setGetfield($getfield) 
@@ -40,11 +40,34 @@
 
           //echo $tweets;
           $tweets = json_decode($tweets);
-          
+
           foreach($tweets->statuses as $t){
             
-            if(isset($t->entities->media) && strlen($t->entities->media[0]->media_url) > 0){
-              echo "<pre>" . $t->text . "</pre>";
+            if(strpos($t->text, 'http://t.co') !== false && substr($t->text, 0, 2) !== 'RT'){
+              preg_match("/(http|https|ftp|ftps)\:\/\/[a-zA-Z0-9\-\.]+\.[a-zA-Z]{2,3}(\/\S*)?/", $t->text, $link);
+              if(is_array($link)){
+                $temp = expandShortUrl($link[0]);
+              }else{
+                $temp = expandShortUrl($link);
+              }
+              if($temp === "null"){
+                continue;
+              }
+              echo "<pre>" . $t->text . "\n" . $temp . "</pre>";
+            }
+          }
+
+          function expandShortUrl($url) {
+            $headers = get_headers($url, 1);
+            if(isset($headers['location'])){
+              if(!is_array($headers['location'])){
+                $out = $headers['location'];
+              }else {
+                $out = $headers['location'][0];
+              }
+              return $out;
+            }else {
+              return "null";
             }
           }
 
