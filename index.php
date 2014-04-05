@@ -133,14 +133,12 @@
                   echo "</a>";
                 echo "</div>";
 
-
-
                 echo "<div class='tweet-user-media-wrap clearfix'>";
                   echo "<div class='user-tweet-area'>";
                     
                     echo "<div class='tweet-text'>";
-                      echo "<div class='tweet-time'>";
-                        echo "<a href='http://twitter.com/" . $user_name . "'>";
+                      echo "<div class='tweet-header'>";
+                        echo "<a class='user-handle' href='http://twitter.com/" . $user_name . "'>";
                     echo "@" . $user_name;
                   echo "</a> | ";
                         $date = strtotime($t->created_at);

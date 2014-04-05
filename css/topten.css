@@ -47,7 +47,7 @@ body,html{
 .tweet-container{
   background: #cccccc;
   box-shadow: 0 4px 0 0 #ff9126;
-  margin-bottom: 40px;
+  margin-bottom: 75px;
 }
 .user-icon{
   width: 100%;
@@ -62,7 +62,11 @@ body,html{
   background: #FFF;
   box-shadow: 0 0px 0 4px #ff9126;
 }
-.user-handle{}
+.user-handle{
+  color: #ff9126;
+  font-weight: bold;
+  font-family: arial;
+}
 .user-tweet-area{
   margin: 20px 0;
   width: 50%;
@@ -75,6 +79,13 @@ body,html{
   clear:both;
   margin-bottom: 20px;
 }
+.tweet-header{
+  padding-bottom: 5px;
+  border-bottom: 1px solid #3a3a3a;
+  margin-bottom: 10px;
+  color:#3a3a3a;
+}
+
 .tweet-text,.tweet-media{
   text-align: left;
   float: left;
@@ -86,7 +97,7 @@ body,html{
 .tweet-media{
   width: 50%;
   float: left;
-  margin: 20px 0;
+  margin: 45px 0;
   padding-right: 30px;
 }
 iframe{
@@ -94,9 +105,9 @@ iframe{
   height: 250px;
 }
 p{
-  font-family: 'impact';
+  font-family: "Lato","Helvetica Neue",Helvetica,Arial,sans-serif;
   font-size: 30px;
-  line-height: 1.5em;
+  line-height: 1.25em;
   color: #000;
 }
 h2{
