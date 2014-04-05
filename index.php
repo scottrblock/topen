@@ -28,9 +28,7 @@
               'consumer_secret' => CONSUMER_SECRET
           );
 
-          //https://github.com/J7mbo/twitter-api-php
-
-
+          https://github.com/J7mbo/twitter-api-php
 
           $url = 'https://api.twitter.com/1.1/search/tweets.json';
           $getfield = '?q=#sctop10&result_type=mixed&include_entities=true';
@@ -40,16 +38,15 @@
                        ->buildOauth($url, $requestMethod) 
                        ->performRequest(); 
 
-          $tweets = json_decode($tweets);
-          foreach($tweets->statuses as $t){
 
-            if (strlen($t->entities->media[0]->media_url) > 0 ){
-              echo "<li><pre>";
-                echo ( $t->text );
-              echo "</pre></li>";
+          //echo $tweets;
+          $tweets = json_decode($tweets);
+          
+          foreach($tweets->statuses as $t){
+            
+            if(isset($t->entities->media) && strlen($t->entities->media[0]->media_url) > 0){
+              echo "<pre>" . $t->text . "</pre>";
             }
-           
-           //echo "<li>" . $t->text . "</li>";
           }
 
         ?>
