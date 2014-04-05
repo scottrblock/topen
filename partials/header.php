@@ -10,8 +10,8 @@
 
     <!-- Latest compiled and minified CSS -->
     <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css">
-    <link rel="stylesheet" href="/css/bootstrap.flatly.min.css">
-    <link rel="stylesheet" href="/css/topten.css">
+    <link rel="stylesheet" href="css/bootstrap.flatly.min.css">
+    <link rel="stylesheet" href="css/topten.css">
 
     <!-- Optional theme -->
 
