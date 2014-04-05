@@ -46,14 +46,32 @@
             if(strpos($t->text, 'http://t.co') !== false && substr($t->text, 0, 2) !== 'RT'){
               preg_match("/(http|https|ftp|ftps)\:\/\/[a-zA-Z0-9\-\.]+\.[a-zA-Z]{2,3}(\/\S*)?/", $t->text, $link);
               if(is_array($link)){
-                $temp = expandShortUrl($link[0]);
+                $boner_url = expandShortUrl($link[0]);
               }else{
-                $temp = expandShortUrl($link);
+                $boner_url = expandShortUrl($link);
               }
-              if($temp === "null"){
+              if($boner_url === "null"){
                 continue;
               }
-              echo "<pre>" . $t->text . "\n" . $temp . "</pre>";
+
+              $youtube_string = "http://youtu.be/";
+              if( strpos($boner_url, $youtube_string) !== false ){
+                $youtube_id = str_replace($youtube_string, "", $boner_url);
+              } else{
+                continue;
+              }
+              $user_name = $t->user->screen_name;
+              
+              echo "<div class='user-info'>";
+                echo "<a href='http://twitter.com/" . $user_name . "'>@" . $user_name;
+                echo "<img src='" . $t->user->profile_image_url . "'/></a>";
+              echo "</div>";
+
+              echo "<pre>";
+              print_r($t);
+              echo "</pre>";
+              echo "<div>" . $t->text . "</div>";
+              echo '<iframe width="560" height="315" src="//www.youtube.com/embed/' . $youtube_id . '" frameborder="0" allowfullscreen></iframe>';
             }
           }
 
