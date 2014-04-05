@@ -11,10 +11,10 @@
 
         define('TWEET_LIMIT', 5);
         define('TWITTER_USERNAME', 'theMikeSikora');
-        define('CONSUMER_KEY', 'n5SbbMJCKFEHXlPHt5ELSjCVN');
-        define('CONSUMER_SECRET', 'd2bPuSfHRM8UtzJDwiEBXClLWRQ7VHdaTbqI9BCl7tZ5eIJmK4');
-        define('ACCESS_TOKEN', '480963993-3jvB2ikkBkqCizENWiBVraotcIdHziuKjw2ftOq4');
-        define('ACCESS_TOKEN_SECRET', 'B3omhGUKDLu0dJgwcRVsN290FaeYTCz7sKkWleQBYOm4Y');
+        define('CONSUMER_KEY', 'b6J0iMKWMyeDcXKVZuxw');
+        define('CONSUMER_SECRET', 'shkIvWQnTWS2tphJQi2EASnlzGaSZecI6fvrxmHSk');
+        define('ACCESS_TOKEN', '480963993-dVWPw1Gn9gYYx0EKotTh59gdq1NmdLIoetKJUT9R');
+        define('ACCESS_TOKEN_SECRET', 'P9TciGLDqFrC83Sx5LTlx0yVlI8otiM4z6kYuSshC6o3U');
 
         require_once('TwitterAPIExchange.php');
 
@@ -32,10 +32,9 @@
         $getfield = '?username=' . TWITTER_USERNAME;
         $requestMethod = 'GET';
         $twitter = new TwitterAPIExchange($settings);
-        echo $twitter->setGetfield($getfield)
-                     ->buildOauth($url, $requestMethod)
+        echo $twitter->setGetfield($getfield) 
+                     ->buildOauth($url, $requestMethod) 
                      ->performRequest(); 
-
 
       ?>
     </div>
