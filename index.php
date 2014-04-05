@@ -2,11 +2,8 @@
    include_once("partials/header.php");
 ?>    
   <div class="container">
-    <div class="col-md-12">
-      <h1>TwitterPlays</h1>
-
-      
-      <ul>
+    <div class="col-md-12">      
+      <ul class="main-contain col-md-8 col-md-offset-2">
       
         <?php
           define('TWEET_LIMIT', 5);
@@ -26,10 +23,12 @@
               'consumer_secret' => CONSUMER_SECRET
           );
 
-         # https://github.com/J7mbo/twitter-api-php
+          $all_tweets = array();
+
+          # https://github.com/J7mbo/twitter-api-php
 
           $url = 'https://api.twitter.com/1.1/search/tweets.json';
-          $getfield = '?q=%23sctop10&result_type=mixed&count=200&include_entities=true';
+          $getfield = '?q=%23sctop10&result_type=mixed&count=100&include_entities=true';
           $requestMethod = 'GET';
           $twitter = new TwitterAPIExchange($settings);
           $tweets = json_decode($twitter->setGetfield($getfield) 
@@ -37,11 +36,19 @@
                        ->performRequest()); 
 
 
+          $url2 = 'https://api.twitter.com/1.1/search/tweets.json';
+          $getfield2 = '?q=@sctop10&result_type=mixed&count=100&include_entities=true';
+          $tweets2 = json_decode($twitter->setGetfield($getfield2) 
+                       ->buildOauth($url2, $requestMethod) 
+                       ->performRequest()); 
+
+          $all_tweets = array_merge($tweets->statuses, $tweets2->statuses);
+
           # avoid duplicates by keeping track of used youtube videos
           $youtube_ids = array();
 
           # loop through all tweets
-          foreach($tweets->statuses as $t){
+          foreach($all_tweets as $t){
             
             # only tweets that have a link and are not retweets
             if( substr($t->text, 0, 2) !== 'RT' && strpos($t->text, 'RT') == false){
@@ -57,7 +64,12 @@
               $youtube_string = "http://youtu.be/";
               if( strpos($boner_url, $youtube_string) !== false ){
                 $youtube_id = str_replace($youtube_string, "", $boner_url);
+                $question_i = strpos($youtube_id, "?");
 
+                if ($question_i){
+                  $youtube_id = substr($youtube_id, 0, $question_i);
+                }
+               
                 if(in_array($youtube_id, $youtube_ids)){
                   continue;
                 }
@@ -70,16 +82,6 @@
               # add avi and twitter handle
               $user_name = $t->user->screen_name;
 
-             /* echo "<pre>";
-              print_r($t);
-              echo "</pre>";*/
-              echo "<div class='user-info'>";
-                echo "<a href='http://twitter.com/" . $user_name . "'>";
-                  echo "<img class='user-avatar' src='" . $t->user->profile_image_url . "'/>";
-                  echo "@" . $user_name;
-                echo "</a>";
-              echo "</div>";
-
               # remove things from the tweet
               $a = str_replace(" " . $flacid_url, "", $t->text);
               $b = str_replace(" #SCtop10", "", $a);
@@ -90,9 +92,66 @@
               $g = str_replace("#sctop10 ", "", $f);
               $h = str_replace("»", "", $g);
               $i = str_replace($flacid_url . " ", "", $h);
-              echo "<div>" . $i . "</div>";
-              echo '<iframe width="560" height="315" src="//www.youtube.com/embed/' . $youtube_id . '" frameborder="0" allowfullscreen></iframe>';
+
+              echo "<li class='tweet-container'>";
+                echo "<div class='user-icon'>";
+                  echo "<a href='http://twitter.com/" . $user_name . "'>";
+                    echo "<img class='user-avatar' src='" . $t->user->profile_image_url . "'/>";
+                  echo "</a>";
+                echo "</div>";
+
+                echo "<div class='user-handle'>";
+                  echo "<a href='http://twitter.com/" . $user_name . "'>";
+                    echo "@" . $user_name;
+                  echo "</a>";
+                echo "</div>";
+
+                echo "<div class='tweet-user-media-wrap clearfix'>";
+                  echo "<div class='user-tweet-area'>";
+
+                    echo "<div class='tweet-time'>";
+                      $date = strtotime($t->created_at);
+                      echo ago($date);
+                    echo "</div>";
+                    
+                    echo "<div class='tweet-text'>";
+                      echo "<p>" . $i . "</p>";
+                    echo "</div>";
+
+                  echo "</div>";
+
+                  echo "<div class='tweet-media'>";
+                    echo '<iframe src="//www.youtube.com/embed/' . $youtube_id . '" frameborder="0" allowfullscreen></iframe>';
+                  echo "</div>";
+                
+                echo "</div>";
+
+              echo "</li>";
+
             }
+          }
+
+          function ago($time)
+          {
+             $periods = array("second", "minute", "hour", "day", "week", "month", "year", "decade");
+             $lengths = array("60","60","24","7","4.35","12","10");
+
+             $now = time();
+
+                 $difference     = $now - $time;
+                 $tense         = "ago";
+
+             for($j = 0; $difference >= $lengths[$j] && $j < count($lengths)-1; $j++) {
+                 $difference /= $lengths[$j];
+             }
+
+             $difference = round($difference);
+
+             if($difference != 1) {
+                 $periods[$j].= "s";
+             }
+
+             return "$difference $periods[$j] ago ";
           }
 
         

@@ -15,6 +15,9 @@
 
     <link href="favicon.ico" rel="icon" type="image/x-icon" />
 
+    <link href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css" rel="stylesheet">
+
+
     <!-- Optional theme -->
 
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
@@ -24,10 +27,7 @@
       <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
     <![endif]-->
   </head>
-  <?php
-  // flush the buffer
-    flush();
-  ?>
+
   <body>
   <div class="header-contain">
     <div class="header-logo">

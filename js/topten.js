@@ -13,5 +13,12 @@ $(document).ready(function(){
       var link = $(this).attr('href');
       window.open(link, '_blank');
   });
+
+  var audioElement = document.createElement('audio');
+      audioElement.setAttribute('src', 'top10.ogg');
+
+  $('.sound-logo').click(function() {
+      audioElement.play();
+  });
   
 });
