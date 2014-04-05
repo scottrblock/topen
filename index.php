@@ -33,7 +33,7 @@
               'consumer_key' => CONSUMER_KEY,
               'consumer_secret' => CONSUMER_SECRET
           );
-
+          
           $all_tweets = array();
 
           # https://github.com/J7mbo/twitter-api-php
@@ -60,11 +60,9 @@
 
           # loop through all tweets
           foreach($all_tweets as $t){
-            
             # only tweets that have a link and are not retweets
             if( substr($t->text, 0, 2) !== 'RT' && strpos($t->text, 'RT') == false){
-              if (!is_array($t->entities->urls)){
-
+              if (!is_array($t->entities->urls) || $t->retweet_count < 5 && $t->favorite_count < 5){
                 continue;
               } else{
                 $boner_url = $t->entities->urls[0]->expanded_url;
