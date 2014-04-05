@@ -46,6 +46,7 @@
           $tweets6 = tweetsQuery('@nhl', $settings);
           $tweets7 = tweetsQuery('@nfl', $settings);
           $tweets8 = tweetsQuery('@espn', $settings);
+          $tweets9 = tweetsQuery('%23nottop10', $settings);
 
           $all_tweets = array_merge($tweets->statuses, $tweets2->statuses, $tweets3->statuses, 
                             $tweets4->statuses, $tweets5->statuses, $tweets6->statuses, 
@@ -89,14 +90,8 @@
 
               # remove things from the tweet
               $a = str_replace(" " . $flacid_url, "", $t->text);
-              $b = str_replace(" #SCtop10", "", $a);
-              $c = str_replace(" #sctop10", "", $b);
-              $d = str_replace(" #SCTop10", "", $c);
-              $e = str_replace("#SCTop10 ", "", $d);
-              $f = str_replace("#SCtop10 ", "", $e);
-              $g = str_replace("#sctop10 ", "", $f);
-              $h = str_replace("»", "", $g);
-              $i = str_replace($flacid_url . " ", "", $h);
+              $b = str_replace("»", "", $a);
+              $c = str_replace($flacid_url . " ", "", $b);
 
               echo "<li class='tweet-container'>";
                 echo "<div class='user-icon'>";
@@ -116,7 +111,7 @@
                         $date = strtotime($t->created_at);
                         echo ago($date);
                       echo "</div>";
-                      echo "<p>" . $i . "</p>";
+                      echo "<p>" . $c . "</p>";
                     echo "</div>";
 
                   echo "</div>";
