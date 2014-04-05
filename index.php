@@ -133,7 +133,6 @@
           }
 
           function tweetsQuery($queryStr, $settings){
-            echo "here";
               $url = 'https://api.twitter.com/1.1/search/tweets.json';
               $getfield = '?q=' . $queryStr . '&result_type=mixed&count=100&include_entities=true';
               $requestMethod = 'GET';
