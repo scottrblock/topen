@@ -32,7 +32,7 @@
 
          $url = 'https://api.twitter.com/1.1/search/tweets.json';
 
-          $getfield = '?q=#sctop10&result_type=mixed&include_entities=true';
+          $getfield = '?q=#sctop10&count=100&include_entities=true&mode=videos';
           $requestMethod = 'GET';
           $twitter = new TwitterAPIExchange($settings);
           $tweets = $twitter->setGetfield($getfield) 
@@ -45,9 +45,9 @@
           
           foreach($tweets->statuses as $t){
             
-            if(isset($t->entities->media) && strlen($t->entities->media[0]->media_url) > 0){
+            // if(isset($t->entities->media) && strlen($t->entities->media[0]->media_url) > 0){
               echo "<pre>" . $t->text . "</pre>";
-            }
+            // }
           }
 
         ?>
