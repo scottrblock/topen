@@ -62,10 +62,14 @@ body,html{
   background: #FFF;
   box-shadow: 0 0px 0 4px #ff9126;
 }
-.user-handle{
+.user-handle,.user-handle:visited{
   color: #ff9126;
   font-weight: bold;
   font-family: arial;
+}
+.user-handle:hover{
+  color: #ff9126;
+  text-decoration: underline;
 }
 .user-tweet-area{
   margin: 20px 0;
