@@ -9,7 +9,6 @@
       <ul>
       
         <?php
-        #kevin was here
           define('TWEET_LIMIT', 5);
           define('TWITTER_USERNAME', 'theMikeSikora');
           define('CONSUMER_KEY', 'b6J0iMKWMyeDcXKVZuxw');
@@ -30,7 +29,7 @@
          # https://github.com/J7mbo/twitter-api-php
 
           $url = 'https://api.twitter.com/1.1/search/tweets.json';
-          $getfield = '?q=%23sctop10&result_type=mixed&include_entities=true&count=200';
+          $getfield = '?q=%23sctop10&result_type=mixed&count=200&include_entities=true';
           $requestMethod = 'GET';
           $twitter = new TwitterAPIExchange($settings);
           $tweets = json_decode($twitter->setGetfield($getfield) 
@@ -45,11 +44,13 @@
           foreach($tweets->statuses as $t){
             
             # only tweets that have a link and are not retweets
-            if( substr($t->text, 0, 2) !== 'RT'){
+            if( substr($t->text, 0, 2) !== 'RT' && strpos($t->text, 'RT') == false){
               if (!is_array($t->entities->urls)){
+
                 continue;
               } else{
                 $boner_url = $t->entities->urls[0]->expanded_url;
+                $flacid_url = $t->entities->urls[0]->url;
               }
 
               # extract youtube id from link
@@ -79,10 +80,17 @@
                 echo "</a>";
               echo "</div>";
 
-              # delete the link from the tweet
-              $linkless = str_replace($flacid_url . " ", "", $t->text);
-              echo "<div>" . $linkless . "</div>";
-             echo '<iframe width="560" height="315" src="//www.youtube.com/embed/' . $youtube_id . '" frameborder="0" allowfullscreen></iframe>';
+              # remove things from the tweet
+              $a = str_replace(" " . $flacid_url, "", $t->text);
+              $b = str_replace(" #SCtop10", "", $a);
+              $c = str_replace(" #sctop10", "", $b);
+              $d = str_replace(" #SCTop10", "", $c);
+              $e = str_replace("#SCTop10 ", "", $d);
+              $f = str_replace("#SCtop10 ", "", $e);
+              $g = str_replace("#sctop10 ", "", $f);
+              $h = str_replace($flacid_url . " ", "", $g);
+              echo "<div>" . $h . "</div>";
+              echo '<iframe width="560" height="315" src="//www.youtube.com/embed/' . $youtube_id . '" frameborder="0" allowfullscreen></iframe>';
             }
           }
 
