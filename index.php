@@ -32,19 +32,24 @@
 
 
 
-          $url = 'https://api.twitter.com/1.1/search/tweets.json';
-          $getfield = '?q=#baseball&result_type=recent';
+         $url = 'https://api.twitter.com/1.1/search/tweets.json';
+          $getfield = '?q=#sctop10&result_type=mixed&include_entities=true';
           $requestMethod = 'GET';
           $twitter = new TwitterAPIExchange($settings);
           $tweets = $twitter->setGetfield($getfield) 
                        ->buildOauth($url, $requestMethod) 
                        ->performRequest(); 
 
-          echo $tweets;
-          $tweets = json_decode($tweets ->statuses);
-          
-          foreach($tweets as $t){
-            echo "<li>" . $t->text . "</li>";
+          $tweets = json_decode($tweets);
+          foreach($tweets->statuses as $t){
+
+            if (strlen($t->entities->media[0]->media_url) > 0 ){
+              echo "<li><pre>";
+                echo ( $t->text );
+              echo "</pre></li>";
+            }
+           
+           //echo "<li>" . $t->text . "</li>";
           }
 
         ?>
