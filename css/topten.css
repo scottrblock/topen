@@ -23,6 +23,15 @@ body,html{
   width: 150px;
   text-align: center;
 }
+.logo-backdrop{
+  float: left;
+  text-align: center;
+  margin: 0 auto;
+  width: 150px;
+  height: 150px;
+  background: #3a3a3a;
+  border-radius: 75px;
+}
 .header-backdrop{
   position: relative;
   z-index: 1;
@@ -89,7 +98,6 @@ body,html{
   margin-bottom: 10px;
   color:#3a3a3a;
 }
-
 .tweet-text,.tweet-media{
   text-align: left;
   float: left;
@@ -97,6 +105,14 @@ body,html{
 }
 .tweet-text{
   margin: 0 30px;
+}
+.tweet-link,.tweet-link:visited{
+  color: #ff9126;
+  text-decoration:none;
+}
+.tweet-link:hover{
+  color: #ff9126;
+  text-decoration:underline;
 }
 .tweet-media{
   width: 50%;

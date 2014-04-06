@@ -92,6 +92,9 @@
               $a = str_replace(" " . $flacid_url, "", $t->text);
               $b = str_replace("»", "", $a);
               $c = str_replace($flacid_url . " ", "", $b);
+              $tweetText = $c;
+              $tweetText = preg_replace('/@([a-zA-Z0-9_]+)/', '<a class="tweet-link" href="http://www.twitter.com/$1" target="_blank">@$1</a>', $tweetText);
+              $tweetText = preg_replace('/#([a-zA-Z0-9_]+)/', '<a class="tweet-link" href="http://array_search(needle, haystack).twitter.com/search?q=$1" target="_blank">#$1</a>', $tweetText);
 
               echo "<li class='tweet-container'>";
                 echo "<div class='user-icon'>";
@@ -111,7 +114,7 @@
                         $date = strtotime($t->created_at);
                         echo ago($date);
                       echo "</div>";
-                      echo "<p>" . $c . "</p>";
+                      echo "<p>" . $tweetText . "</p>";
                     echo "</div>";
 
                   echo "</div>";
