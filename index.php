@@ -46,7 +46,7 @@
           $tweets6 = tweetsQuery('@nhl', $settings);
           $tweets7 = tweetsQuery('@nfl', $settings);
           $tweets8 = tweetsQuery('@espn', $settings);
-          $tweets9 = tweetsQuery('%23nottop10', $settings);
+          $tweets9 = tweetsQuery('%23scnottop10', $settings);
 
           $all_tweets = array_merge($tweets->statuses, $tweets2->statuses, $tweets3->statuses, 
                             $tweets4->statuses, $tweets5->statuses, $tweets6->statuses, 
